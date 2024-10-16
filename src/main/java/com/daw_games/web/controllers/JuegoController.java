@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.daw_games.persistence.entities.Juego;
+import com.daw_games.persistence.entities.enumerados.Tipo;
 import com.daw_games.service.dto.JuegoService;
 
 @RestController
 @RequestMapping("/juegos")
 public class JuegoController {
+	
 	@Autowired
 	private JuegoService juegoService;
 
@@ -75,5 +77,40 @@ public class JuegoController {
 	public ResponseEntity<List<Juego>> buscarPorPrecio(@RequestParam("min") double min,
 			@RequestParam("max") double max) {
 		return ResponseEntity.ok(this.juegoService.getByPrecio(min, max));
+	}
+	
+	@GetMapping("/nombre")
+	public ResponseEntity<List<Juego>> buscarPorNombre(@RequestParam("nombre") String nombre) {
+		return ResponseEntity.ok(this.juegoService.getByNombre(nombre));
+	}
+	
+	@GetMapping("/genero")
+	public ResponseEntity<List<Juego>> buscarPorGenero(@RequestParam("genero") String genero) {
+		return ResponseEntity.ok(this.juegoService.getByGenero(genero));
+	}
+	
+	@GetMapping("/plataforma")
+	public ResponseEntity<List<Juego>> buscarPorPlataforma(@RequestParam("plataforma") String plataforma) {
+		return ResponseEntity.ok(this.juegoService.getByPlataforma(plataforma));
+	}
+	
+	@GetMapping("/tipo")
+	public ResponseEntity<List<Juego>> buscarPorTipo(@RequestParam("tipo") Tipo tipo) {
+		return ResponseEntity.ok(this.juegoService.getByTipo(tipo));
+	}
+	
+	@GetMapping("/descargas")
+	public ResponseEntity<List<Juego>> buscarPorDescargas(@RequestParam("descargas") Integer descargas) {
+		return ResponseEntity.ok(this.juegoService.getByDescargas(descargas));
+	}
+	
+	@PutMapping("/completar")
+	public ResponseEntity<Juego> completar(@RequestParam("completar") Juego juego) {
+		return ResponseEntity.ok().build();
+	}
+	
+	@PutMapping("/desmarcar")
+	public ResponseEntity<Juego> desmarcar(@RequestParam("desmarcar") Juego juego) {
+		return ResponseEntity.ok().build();
 	}
 }
